@@ -33,6 +33,21 @@ function BinarySearchTree() {
         console.log(root)
     }
     this.search = function (key) {
+        return searchNode(root,key)
+        function searchNode(node, key) {
+            if(node == null) {
+                return false
+            }
+            if(key<node.key) {
+                return searchNode(node.left, key)
+            }
+            if(key>node.key) {
+                return searchNode(node.right, key)
+            }
+            if(key === node.key) {
+                return true
+            }
+        }
         
     }
     this.inOrderTraverse = function (callback) { //中序遍历
@@ -53,11 +68,31 @@ function BinarySearchTree() {
     this.postOrderTraverse = function () { //后序遍历
 
     }
-    this.min = function () {
-        
+    this.min = function () { // 二叉树最小值在最左下角
+        return minRoot(root)
+        function minRoot(node) {
+            if(node) {
+              while (node&&node.left!=null) {
+                  node = node.left
+              }
+              return node.key
+            }else{
+                return null
+            }
+        }
     }
-    this.max = function () {
-        
+    this.max = function () { // 二叉树最大值在最右下角
+        return maxRoot(root)
+        function maxRoot(node) {
+            if(node) {
+                while (node&&node.right!=null) {
+                    node = node.right
+                }
+                return node.key
+            }else{
+                return null
+            }
+        }
     }
     this.remove = function (key) {
         
@@ -77,12 +112,7 @@ tree.inOrderTraverse(function (data) {
     console.log(data)
 })
 
-function test(a) {
-    if(a>0) {
-        a--
-        test(a)
-        console.log(a)
-    }
+console.log(tree.min())
+console.log(tree.max())
+console.log(tree.search(2))
 
-}
-test(10)
